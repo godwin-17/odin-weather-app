@@ -1,5 +1,11 @@
 const WEATHER_API_KEY = "d8a4fae896304025bec80543231306";
-const inputLocation = "London";
+const form = document.querySelector("form");
+const inputLocation = document.querySelector("#weatherInput");
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  getWeatherData(inputLocation.value);
+});
 
 async function getWeatherData(location) {
   try {
@@ -18,8 +24,6 @@ async function getWeatherData(location) {
     console.log(error);
   }
 }
-
-getWeatherData(inputLocation);
 
 async function processWeatherData(data) {
   try {
