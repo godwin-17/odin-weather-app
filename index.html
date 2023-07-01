@@ -8,8 +8,47 @@
     <title>Weather App</title>
   </head>
   <body>
-    <form>
-      <input type="text" id="weatherInput" />
-    </form>
+    <div class="title">
+      <h1 class="title-heading">Weather App</h1>
+    </div>
+    <div class="main-container">
+      <div class="main-subcontainer">
+        <div class="weather-main weather-flex">
+          <form>
+            <input
+              type="text"
+              id="weatherInput"
+              placeholder="Enter a location for the weather info"
+            />
+          </form>
+
+          <div class="weather-container">
+            <div class="country-container">
+              <div class="location-info">
+                <div class="location">Lorem</div>
+                <div class="location-country">
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                </div>
+              </div>
+              <img class="location-flag" src="" alt="Country Flag" />
+            </div>
+
+            <div class="weather-info">
+              <div class="weather-icon-container">
+                <img class="weather-icon" src="" alt="Weather Icon" />
+              </div>
+
+              <div class="weather-conditions">
+                <div class="condition">Lorem</div>
+                <div class="temp">
+                  Lorem <span class="temp-toggle">°C | °F</span>
+                </div>
+                <div class="wind">Wind: <span>10 Kph | Mph</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
