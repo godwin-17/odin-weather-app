@@ -1,10 +1,30 @@
+import { iconMapping } from "./assets/js/iconsPath.js";
+
 const WEATHER_API_KEY = "d8a4fae896304025bec80543231306";
 const form = document.querySelector("form");
 const inputLocation = document.querySelector("#weatherInput");
+const locationName = document.querySelector(".location");
+const locationCountry = document.querySelector(".location-country");
+const condition = document.querySelector(".condition");
+const temp = document.querySelector(".temp");
+const wind = document.querySelector(".wind");
+const weatherIcon = document.querySelector(".weather-icon");
 
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  getWeatherData(inputLocation.value);
+  const weatherData = await getWeatherData(inputLocation.value);
+
+  const isDay = weatherData.isDay;
+
+  console.log(weatherData);
+  locationName.textContent = weatherData.location;
+  locationCountry.textContent = weatherData.country;
+  condition.textContent = weatherData.condition;
+  temp.textContent = weatherData.tempCelsius;
+  wind.textContent = "Wind: " + weatherData.windKph;
+
+  const imageUrls = iconMapping[weatherData.code];
+  weatherIcon.src = isDay ? imageUrls[0] : imageUrls[1];
 });
 
 async function getWeatherData(location) {
@@ -39,6 +59,7 @@ async function processWeatherData(data) {
       windKph: weatherData.current.wind_kph,
       windMph: weatherData.current.wind_mph,
       code: weatherData.current.condition.code,
+      isDay: weatherData.current.is_day,
     };
 
     return processedData;
