@@ -15,7 +15,7 @@ async function getWeatherData(location) {
     );
 
     const data = await response.json();
-
+    console.log(data);
     const processedData = await processWeatherData(data);
 
     console.log("Processed Data", processedData);
@@ -38,6 +38,7 @@ async function processWeatherData(data) {
       tempFahrenheit: weatherData.current.temp_f,
       windKph: weatherData.current.wind_kph,
       windMph: weatherData.current.wind_mph,
+      code: weatherData.current.condition.code,
     };
 
     return processedData;
