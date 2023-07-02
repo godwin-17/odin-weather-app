@@ -11,9 +11,20 @@ const wind = document.querySelector(".wind");
 const weatherIcon = document.querySelector(".weather-icon");
 const locationFlag = document.querySelector(".location-flag");
 
+let isMetric = true;
+let tempC;
+let tempF;
+let windKph;
+let windMph;
+
+weatherIcon.addEventListener("click", toggleMetrics);
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
+  isMetric = true;
   const weatherData = await getWeatherData(inputLocation.value);
+
+  setLocationConditions(weatherData);
 
   const isDay = weatherData.isDay;
 
@@ -21,8 +32,8 @@ form.addEventListener("submit", async (e) => {
   locationName.textContent = weatherData.location;
   locationCountry.textContent = weatherData.country;
   condition.textContent = weatherData.condition;
-  temp.textContent = weatherData.tempCelsius;
-  wind.textContent = "Wind: " + weatherData.windKph;
+  temp.textContent = weatherData.tempCelsius + " °C";
+  wind.textContent = "Wind: " + weatherData.windKph + "km/h";
 
   const imageUrls = iconMapping[weatherData.code];
   weatherIcon.src = isDay ? imageUrls[0] : imageUrls[1];
@@ -96,4 +107,23 @@ async function getCountryFlag(country) {
     console.log(error);
     locationFlag.src = "";
   }
+}
+
+function toggleMetrics() {
+  if (isMetric) {
+    temp.textContent = `${tempF} °F`;
+    wind.textContent = `Wind; ${windMph} mph`;
+    isMetric = false;
+  } else {
+    temp.textContent = `${tempC} °C`;
+    wind.textContent = `Wind: ${windKph} km/h`;
+    isMetric = true;
+  }
+}
+
+function setLocationConditions(location) {
+  tempC = location.tempCelsius;
+  tempF = location.tempFahrenheit;
+  windKph = location.windKph;
+  windMph = location.windMph;
 }
