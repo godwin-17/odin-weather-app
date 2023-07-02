@@ -13,6 +13,7 @@ const locationFlag = document.querySelector(".location-flag");
 const weatherIconContainer = document.querySelector(".weather-icon-container");
 const localTime = document.querySelector(".localtime");
 const weatherInfoContainer = document.querySelector(".weather-container");
+const weatherError = document.querySelector(".weather-error");
 
 let isMetric = true;
 let tempC;
@@ -25,24 +26,27 @@ weatherIcon.addEventListener("click", toggleMetrics);
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   isMetric = true;
+  weatherError.textContent = "";
   const weatherData = await getWeatherData(inputLocation.value);
 
-  setLocationConditions(weatherData);
+  if (weatherData) {
+    setLocationConditions(weatherData);
 
-  const isDay = weatherData.isDay;
+    const isDay = weatherData.isDay;
 
-  setWeatherBackground(isDay);
-  console.log(weatherData);
-  locationName.textContent = weatherData.location;
-  locationCountry.textContent = weatherData.country;
-  condition.textContent = weatherData.condition;
-  temp.textContent = weatherData.tempCelsius + " °C";
-  wind.textContent = "Wind: " + weatherData.windKph + "km/h";
-  localTime.textContent = "Local Time: " + weatherData.localTime;
+    setWeatherBackground(isDay);
+    console.log(weatherData);
+    locationName.textContent = weatherData.location;
+    locationCountry.textContent = weatherData.country;
+    condition.textContent = weatherData.condition;
+    temp.textContent = weatherData.tempCelsius + " °C";
+    wind.textContent = "Wind: " + weatherData.windKph + "km/h";
+    localTime.textContent = "Local Time: " + weatherData.localTime;
 
-  const imageUrls = iconMapping[weatherData.code];
-  weatherIcon.src = isDay ? imageUrls[0] : imageUrls[1];
-  weatherInfoContainer.style.display = "flex";
+    const imageUrls = iconMapping[weatherData.code];
+    weatherIcon.src = isDay ? imageUrls[0] : imageUrls[1];
+    weatherInfoContainer.style.display = "flex";
+  }
 });
 
 async function getWeatherData(location) {
@@ -53,6 +57,11 @@ async function getWeatherData(location) {
     );
 
     const data = await response.json();
+
+    if ("error" in data) {
+      displayError();
+    }
+
     console.log(data);
     const processedData = await processWeatherData(data);
     const countryFlag = await getCountryFlag(processedData.country);
@@ -141,4 +150,24 @@ function setWeatherBackground(isDay) {
     weatherIconContainer.style.backgroundImage =
       "url(./assets/images/night.jpg)";
   }
+}
+
+function displayError() {
+  weatherIconContainer.style.backgroundImage = "url(./assets/images/night.jpg)";
+  weatherIcon.src = "./assets/weather-icons/1006.svg";
+  weatherError.textContent = "No matching location found.";
+  weatherError.style.display = "block";
+  clearData();
+  weatherInfoContainer.style.display = "flex";
+}
+
+function clearData() {
+  locationFlag.src = "";
+  localTime.textContent = "";
+  locationName.textContent = "";
+  locationCountry.textContent = "";
+  condition.textContent = "";
+  temp.textContent = "";
+  wind.textContent = "";
+  localTime.textContent = "";
 }
