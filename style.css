@@ -93,6 +93,12 @@ input[type="text"] {
   cursor: pointer;
 }
 
+.weather-error {
+  display: none;
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
 .localtime {
   font-weight: 300;
 }
