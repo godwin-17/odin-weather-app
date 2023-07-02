@@ -12,6 +12,7 @@ const weatherIcon = document.querySelector(".weather-icon");
 const locationFlag = document.querySelector(".location-flag");
 const weatherIconContainer = document.querySelector(".weather-icon-container");
 const localTime = document.querySelector(".localtime");
+const weatherInfoContainer = document.querySelector(".weather-container");
 
 let isMetric = true;
 let tempC;
@@ -41,6 +42,7 @@ form.addEventListener("submit", async (e) => {
 
   const imageUrls = iconMapping[weatherData.code];
   weatherIcon.src = isDay ? imageUrls[0] : imageUrls[1];
+  weatherInfoContainer.style.display = "flex";
 });
 
 async function getWeatherData(location) {
