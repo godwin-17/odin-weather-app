@@ -11,6 +11,7 @@ const wind = document.querySelector(".wind");
 const weatherIcon = document.querySelector(".weather-icon");
 const locationFlag = document.querySelector(".location-flag");
 const weatherIconContainer = document.querySelector(".weather-icon-container");
+const localTime = document.querySelector(".localtime");
 
 let isMetric = true;
 let tempC;
@@ -36,6 +37,7 @@ form.addEventListener("submit", async (e) => {
   condition.textContent = weatherData.condition;
   temp.textContent = weatherData.tempCelsius + " °C";
   wind.textContent = "Wind: " + weatherData.windKph + "km/h";
+  localTime.textContent = "Local Time: " + weatherData.localTime;
 
   const imageUrls = iconMapping[weatherData.code];
   weatherIcon.src = isDay ? imageUrls[0] : imageUrls[1];
