@@ -9,6 +9,7 @@ const condition = document.querySelector(".condition");
 const temp = document.querySelector(".temp");
 const wind = document.querySelector(".wind");
 const weatherIcon = document.querySelector(".weather-icon");
+const locationFlag = document.querySelector(".location-flag");
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -37,6 +38,7 @@ async function getWeatherData(location) {
     const data = await response.json();
     console.log(data);
     const processedData = await processWeatherData(data);
+    const countryFlag = await getCountryFlag(processedData.country);
 
     console.log("Processed Data", processedData);
     return processedData;
@@ -65,5 +67,33 @@ async function processWeatherData(data) {
     return processedData;
   } catch (error) {
     console.log(error);
+  }
+}
+
+async function getCountryFlag(country) {
+  try {
+    const response = await fetch(
+      `https://restcountries.com/v3.1/name/${country}`,
+      { mode: "cors" }
+    );
+
+    const data = await response.json();
+
+    console.log(data);
+    console.log(data.length);
+
+    if (data.length > 1) {
+      const countryDetails = data.find((e) => e.name.common === country);
+      locationFlag.src = countryDetails.flags.svg;
+      console.log(countryDetails.flag);
+      console.log(countryDetails.name.common);
+    } else {
+      locationFlag.src = data[0].flags.svg;
+      console.log(data[0].flag);
+      console.log(data[0].name.common);
+    }
+  } catch (error) {
+    console.log(error);
+    locationFlag.src = "";
   }
 }
