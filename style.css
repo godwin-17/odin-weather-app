@@ -49,11 +49,13 @@ input[type="text"] {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2em;
+  gap: 0.5em;
 }
 
 .weather-container {
   max-width: 350px;
+  width: 100%;
+  padding: 1em 2em;
 }
 
 .weather-info {
