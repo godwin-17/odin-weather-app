@@ -10,6 +10,7 @@ const temp = document.querySelector(".temp");
 const wind = document.querySelector(".wind");
 const weatherIcon = document.querySelector(".weather-icon");
 const locationFlag = document.querySelector(".location-flag");
+const weatherIconContainer = document.querySelector(".weather-icon-container");
 
 let isMetric = true;
 let tempC;
@@ -28,6 +29,7 @@ form.addEventListener("submit", async (e) => {
 
   const isDay = weatherData.isDay;
 
+  setWeatherBackground(isDay);
   console.log(weatherData);
   locationName.textContent = weatherData.location;
   locationCountry.textContent = weatherData.country;
@@ -126,4 +128,13 @@ function setLocationConditions(location) {
   tempF = location.tempFahrenheit;
   windKph = location.windKph;
   windMph = location.windMph;
+}
+
+function setWeatherBackground(isDay) {
+  if (isDay) {
+    weatherIconContainer.style.backgroundImage = "url(./assets/images/day.jpg)";
+  } else {
+    weatherIconContainer.style.backgroundImage =
+      "url(./assets/images/night.jpg)";
+  }
 }
