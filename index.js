@@ -41,8 +41,8 @@ form.addEventListener("submit", async (e) => {
     condition.textContent = weatherData.condition;
     temp.textContent = weatherData.tempCelsius + " °C";
     wind.textContent = "Wind: " + weatherData.windKph + "km/h";
-    localTime.textContent = "Local Time: " + weatherData.localTime;
-
+    const date = formatDate(weatherData.localTime);
+    localTime.textContent = date;
     const imageUrls = iconMapping[weatherData.code];
     weatherIcon.src = isDay ? imageUrls[0] : imageUrls[1];
     weatherInfoContainer.style.display = "flex";
@@ -170,4 +170,27 @@ function clearData() {
   temp.textContent = "";
   wind.textContent = "";
   localTime.textContent = "";
+}
+
+function formatDate(date) {
+  const [datePart, timePart] = date.split(" ");
+
+  const [year, month, day] = datePart.split("-");
+
+  const [hour, minute] = timePart.split(":");
+
+  const newDate = new Date(year, month - 1, day, hour, minute);
+
+  const options = {
+    weekday: "short",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+
+  const formattedDate = newDate.toLocaleString("en-GB", options);
+  return formattedDate;
 }
