@@ -29,11 +29,24 @@ body {
 form {
   width: 100%;
   max-width: 350px;
+  display: flex;
 }
 
 input[type="text"] {
   width: 100%;
+}
+
+input[type="text"],
+.submit-location {
   padding: 1em 2.2em;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.submit-location {
+  border: none;
+  background-image: linear-gradient(to right, #8360c3, #2ebf91);
+  color: #ffffff;
+  font-weight: 900;
 }
 
 .main-subcontainer {
