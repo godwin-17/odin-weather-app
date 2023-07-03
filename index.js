@@ -14,6 +14,7 @@ const weatherIconContainer = document.querySelector(".weather-icon-container");
 const localTime = document.querySelector(".localtime");
 const weatherInfoContainer = document.querySelector(".weather-container");
 const weatherError = document.querySelector(".weather-error");
+const loadingComponent = document.querySelector(".loading");
 
 let isMetric = true;
 let tempC;
@@ -24,6 +25,8 @@ let windMph;
 weatherIcon.addEventListener("click", toggleMetrics);
 
 form.addEventListener("submit", async (e) => {
+  weatherInfoContainer.style.display = "none";
+  showLoadingComponent();
   e.preventDefault();
   isMetric = true;
   weatherError.textContent = "";
@@ -45,6 +48,7 @@ form.addEventListener("submit", async (e) => {
     localTime.textContent = date;
     const imageUrls = iconMapping[weatherData.code];
     weatherIcon.src = isDay ? imageUrls[0] : imageUrls[1];
+    hideLoadingComponent();
     weatherInfoContainer.style.display = "flex";
   }
 });
@@ -59,6 +63,7 @@ async function getWeatherData(location) {
     const data = await response.json();
 
     if ("error" in data) {
+      hideLoadingComponent();
       displayError();
     }
 
@@ -193,4 +198,12 @@ function formatDate(date) {
 
   const formattedDate = newDate.toLocaleString("en-GB", options);
   return formattedDate;
+}
+
+function showLoadingComponent() {
+  loadingComponent.style.display = "block";
+}
+
+function hideLoadingComponent() {
+  loadingComponent.style.display = "none";
 }

@@ -43,6 +43,18 @@ input[type="text"] {
   padding: 0.5em;
 }
 
+.loading {
+  margin-top: 6em;
+  font-size: 2em;
+  font-weight: 900;
+  color: #ffff;
+  background-image: linear-gradient(45deg, #f3ec78, #af4261);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  display: none;
+}
+
 .weather-main {
   max-width: 350px;
   margin: 0 auto;
