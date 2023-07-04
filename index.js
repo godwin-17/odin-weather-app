@@ -24,8 +24,6 @@ let tempF;
 let windKph;
 let windMph;
 
-weatherIcon.addEventListener("click", toggleMetrics);
-
 form.addEventListener("submit", async (e) => {
   weatherInfoContainer.style.display = "none";
   showLoadingComponent();
@@ -36,6 +34,7 @@ form.addEventListener("submit", async (e) => {
 
   if (weatherData) {
     inputLocation.value = "";
+    weatherIcon.addEventListener("click", toggleMetrics);
     setLocationConditions(weatherData);
 
     const isDay = weatherData.isDay;
@@ -53,6 +52,8 @@ form.addEventListener("submit", async (e) => {
     weatherIcon.src = isDay ? imageUrls[0] : imageUrls[1];
     hideLoadingComponent();
     weatherInfoContainer.style.display = "flex";
+  } else {
+    weatherIcon.removeEventListener("click", toggleMetrics);
   }
 });
 
