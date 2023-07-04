@@ -59,7 +59,7 @@ form.addEventListener("submit", async (e) => {
 async function getWeatherData(location) {
   try {
     const response = await fetch(
-      `http://api.weatherapi.com/v1/current.json?key=${WEATHER_API_KEY}&q=${location}`,
+      `https://api.weatherapi.com/v1/current.json?key=${WEATHER_API_KEY}&q=${location}`,
       { mode: "cors" }
     );
 
