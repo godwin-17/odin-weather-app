@@ -35,6 +35,7 @@ form.addEventListener("submit", async (e) => {
   const weatherData = await getWeatherData(inputLocation.value);
 
   if (weatherData) {
+    inputLocation.value = "";
     setLocationConditions(weatherData);
 
     const isDay = weatherData.isDay;
