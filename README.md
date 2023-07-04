@@ -22,8 +22,6 @@ This project was built with:
 
 ## Acknowledgements
 
----
-
 ### Images
 
 [Day Background](https://www.pexels.com/photo/photography-of-sand-dunes-under-blue-sky-998660/)
