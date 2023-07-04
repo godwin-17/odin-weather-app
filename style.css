@@ -20,6 +20,14 @@ body {
   background-attachment: fixed;
 }
 
+::-webkit-scrollbar {
+  width: 0.5px;
+}
+
+::-webkit-scrollbar-track {
+  background-image: linear-gradient(to top, #7f5a83 0%, #0d324d 74%);
+}
+
 .title-heading {
   font-size: clamp(2.5rem, 7vw, 4rem);
   text-align: center;
