@@ -38,7 +38,7 @@ form.addEventListener("submit", async (e) => {
     const isDay = weatherData.isDay;
 
     setWeatherBackground(isDay);
-    console.log(weatherData);
+
     locationName.textContent = weatherData.location;
     locationCountry.textContent = weatherData.country;
     condition.textContent = weatherData.condition;
@@ -67,15 +67,11 @@ async function getWeatherData(location) {
       displayError();
     }
 
-    console.log(data);
     const processedData = await processWeatherData(data);
     const countryFlag = await getCountryFlag(processedData.country);
 
-    console.log("Processed Data", processedData);
     return processedData;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }
 
 async function processWeatherData(data) {
@@ -96,9 +92,7 @@ async function processWeatherData(data) {
     };
 
     return processedData;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }
 
 async function getCountryFlag(country) {
@@ -110,21 +104,13 @@ async function getCountryFlag(country) {
 
     const data = await response.json();
 
-    console.log(data);
-    console.log(data.length);
-
     if (data.length > 1) {
       const countryDetails = data.find((e) => e.name.common === country);
       locationFlag.src = countryDetails.flags.svg;
-      console.log(countryDetails.flag);
-      console.log(countryDetails.name.common);
     } else {
       locationFlag.src = data[0].flags.svg;
-      console.log(data[0].flag);
-      console.log(data[0].name.common);
     }
   } catch (error) {
-    console.log(error);
     locationFlag.src = "";
   }
 }
